@@ -60,19 +60,13 @@ function msg($msg = NULL, $sts = NULL){
 }
 
 function cekLogin(){
-	if(empty(Session::sess('akses'))){
+	if(empty(Session::sess('is_login'))){
 		redirect('?p=login');
 	}
 }
 
 function cekStatus(){
-	if(!empty(Session::sess('akses'))){
-		redirect('?p=dashboard');
-	}
-}
-
-function cekAkses(){
-	if(Session::sess('akses') > 1){
+	if(!empty(Session::sess('is_login'))){
 		redirect('?p=dashboard');
 	}
 }
