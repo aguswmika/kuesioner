@@ -17,12 +17,12 @@
                 <div class="login-form-body">
                     <div class="form-gp">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" id="exampleInputEmail1">
+                        <input type="email" id="exampleInputEmail1" name="email">
                         <i class="ti-email"></i>
                     </div>
                     <div class="form-gp">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" id="exampleInputPassword1">
+                        <input type="password" id="exampleInputPassword1" name="password">
                         <i class="ti-lock"></i>
                     </div>
                     <div class="row mb-4 rmber-area">
