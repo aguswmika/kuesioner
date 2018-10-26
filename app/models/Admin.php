@@ -4,7 +4,7 @@ class Admin
 {
 	static function login(){
 		$email     = Input::post('email');
-		$password  = Input::post('password');
+		$password  = md5(Input::post('password'));
 
 		$sql = "SELECT email, password FROM admin_new WHERE email = ? AND password = ?";
 

@@ -11,17 +11,19 @@ require_once BASE_PATH.'app/init.php';
 
 #CSRF::start();
 $url = !empty(Input::get('p')) ? strtolower(Input::get('p')) : 'dashboard';
+model('admin');
 
 switch ($url) {
 	case 'dashboard':
-		if(cekLogin() == false)
-			redirect('?p=login');
+		cekLogin();
 
 		load('dashboard');
 		break;
 
 	case 'login':
+	cekStatus();
 	if(cekPost() == false){
+
 		$data = [
 			'title' => 'Login Pengguna'
 		];
