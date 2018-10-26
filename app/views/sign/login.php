@@ -7,7 +7,7 @@
         <div class="login-box ptb--100">
 
             <form method="POST">
-              <?php echo Session:flash('error') ?>
+              <?php echo Session::flash('error') ?>
 
                 <div class="images-logo">
                     <img src="<?php echo base_url('assets/images/logo/smadara.png')?>" alt="logo">

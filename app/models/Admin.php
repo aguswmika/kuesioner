@@ -19,6 +19,7 @@ class Admin
 			$data = $prep->fetch(PDO::FETCH_OBJ);
 
 			Session::sess('id_admin', $data->id_admin);
+      Session::sess('is_login', true);
 
 			return true;
 		}else{
