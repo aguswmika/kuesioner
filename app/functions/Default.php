@@ -16,9 +16,7 @@ function view($str, $data = []){
 function base_url($str = NULL){
 	$http = 'http'.((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 's' : '').'://';
 	$url  = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
-	if(!empty($str)){
-		$str = $str.'/';
-	}
+
 	return $http.$_SERVER['HTTP_HOST'].$url.$str;
 }
 
