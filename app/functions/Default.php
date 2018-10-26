@@ -53,7 +53,13 @@ function msg($msg = NULL, $sts = NULL){
 	if(empty($msg)){
 		return Session::flash('error');
 	}else{
-		Session::flash('error','<div class="message '.$sts.' clearfix"><span class="fl">'.$msg.'</span><span class="fr"><i class="fa fa-times"></i></span></div>');
+		Session::flash('error','
+			<div class="alert alert-'.$sts.' alert-dismissible fade show" role="alert">
+				'.$msg.'
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				</button>
+			</div>');
 	}
 }
 

@@ -8,9 +8,11 @@ date_default_timezone_set("Asia/Makassar");
 
 require_once BASE_PATH.'app/init.php';
 
+//CSRF::start();
 
-CSRF::start();
 $url = !empty(Input::get('p')) ? strtolower(Input::get('p')) : 'dashboard';
+
+model('admin');
 
 switch ($url) {
 	case 'dashboard':
@@ -21,13 +23,21 @@ switch ($url) {
 		break;
 
 	case 'login':
-		$data = [
-			'title' => 'Login Pengguna'
-		];
-		
-		view('sign/login', $data);
+		if(cekPost() == false){
+			$data = [
+				'title' => 'Login Pengguna'
+			];
+			
+			view('sign/login', $data);
+		}else{
+			if(Admin::login() == true)
+				redirect('?p=dashboard');
+			else{
+				msg('Email/Password Anda salah!', 'danger');
+				redirect('?p=login');
+			}
+		}
 		break;
-	
 	default:
 		break;
 }

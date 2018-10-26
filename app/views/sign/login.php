@@ -3,7 +3,8 @@
 <div class="login-area">
     <div class="container">
         <div class="login-box ptb--100">
-            <form>
+            <form method="POST">
+                <?php echo Session::flash('error') ?>
                 <div class="login-form-head">
                     <h4>Login</h4>
                 </div>
