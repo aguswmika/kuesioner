@@ -24,10 +24,10 @@ switch ($url) {
 		$data = [
 			'title' => 'Login Pengguna'
 		];
-		
+
 		view('sign/login', $data);
 		break;
-	
+
 	default:
 		break;
 }
