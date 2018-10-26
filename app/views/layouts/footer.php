@@ -1,6 +1,10 @@
     <?php
         if(Session::sess('is_login')){
     ?> 
+           
+            </div>
+        </div>
+        <!-- main content area end -->
        <!-- footer area start-->
         <footer>
             <div class="footer-area">

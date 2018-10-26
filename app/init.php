@@ -7,4 +7,4 @@ spl_autoload_register(function($str){
 });
 
 // Connection to mysql
-DB::getInstance('localhost', 'root', '', 'kuesioner');
+DB::getInstance('localhost', 'root', 'root', 'kuesioner');

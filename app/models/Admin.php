@@ -6,7 +6,7 @@ class Admin
 		$email     = Input::post('email');
 		$password  = md5(Input::post('password'));
 
-		$sql = "SELECT email, password FROM admin_new WHERE email = ? AND password = ?";
+		$sql = "SELECT id_admin, nama, email, password FROM admin_new WHERE email = ? AND password = ?";
 
 		$prep = DB::conn()->prepare($sql);
 
@@ -17,14 +17,19 @@ class Admin
 
 		if($prep->rowCount() > 0){
 			$data = $prep->fetch(PDO::FETCH_OBJ);
-
+			
 			Session::sess('id_admin', $data->id_admin);
-      Session::sess('is_login', true);
+			Session::sess('nama', $data->nama);
+      		Session::sess('is_login', true);
 
 			return true;
 		}else{
 			return false;
 		}
+	}
+
+	static function user(){
+
 	}
 
 }
