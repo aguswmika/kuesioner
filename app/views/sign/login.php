@@ -1,11 +1,18 @@
 <?php view('layouts/header', $data) ?>
 <!-- login area start -->
+
 <div class="login-area">
     <div class="container">
+
         <div class="login-box ptb--100">
+
             <form>
+
+                <div class="images-logo">
+                    <img src="<?php echo base_url('assets/images/logo/smadara.png')?>" alt="logo">
+                </div>
                 <div class="login-form-head">
-                    <h4>Login</h4>
+                    <h4>Login Admin</h4>
                 </div>
                 <div class="login-form-body">
                     <div class="form-gp">

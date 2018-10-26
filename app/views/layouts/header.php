@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="assets/css/default-css.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -33,16 +34,13 @@
         <div class="loader"></div>
     </div>
     <!-- preloader area end -->
-    <?php 
+    <?php
         if(Session::sess('is_login')){
     ?>
     <!-- page container area start -->
     <div class="page-container">
     <?php } ?>
-        <?php 
+        <?php
             if(Session::sess('is_login'))
-                view('layouts/sidebar') 
+                view('layouts/sidebar')
         ?>
-
-
- 

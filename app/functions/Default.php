@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function load($str){
 	require_once BASE_PATH.'app/controllers/'.$str.'.php';
@@ -16,9 +16,7 @@ function view($str, $data = []){
 function base_url($str = NULL){
 	$http = 'http'.((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 's' : '').'://';
 	$url  = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
-	if(!empty($str)){
-		$str = $str.'/';
-	}
+
 	return $http.$_SERVER['HTTP_HOST'].$url.$str;
 }
 
@@ -48,7 +46,7 @@ function autoNum($table, $id, $code){
 	}else{
 		return $code."-".$date.'001';
 	}
-	
+
 }
 
 function msg($msg = NULL, $sts = NULL){
@@ -90,7 +88,7 @@ function paginate($table, $limit){
 	$p     = Input::get('p');
 	$hal   = empty(Input::get('hal')) ? 1 : Input::get('hal');
 
-	for ($i=1; $i <= $total; $i++) { 
+	for ($i=1; $i <= $total; $i++) {
 		if($hal == $i ){
 			$class = 'class="active"';
 		}else{
@@ -106,4 +104,3 @@ function paginate($table, $limit){
 		return NULL;
 	}
 }
-
