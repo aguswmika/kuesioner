@@ -21,23 +21,45 @@ switch ($url) {
 		break;
 
 	case 'login':
-	cekStatus();
-	if(cekPost() == false){
+		cekStatus();
 
-		$data = [
-			'title' => 'Login Pengguna'
-		];
+		if(cekPost() == false){
+
+			$data = [
+				'title' => 'Login Pengguna'
+			];
+			
 			view('sign/login', $data);
-	}else{
-		if(Admin::login() == true){
-			redirect('?p=dashboard');
 		}else{
-			msg('Username atau Password Anda Salah', 'danger');
-			redirect('?p=login');
+			if(Admin::login() == true){
+				redirect('?p=dashboard');
+			}else{
+				msg('Username atau Password Anda Salah', 'danger');
+				redirect('?p=login');
+			}
 		}
-	}
 		break;
 
+	case 'kuesioner':
+		cekLogin();
+
+		load('kuesioner');
+		break;
+
+	case 'semester':
+		cekLogin();
+
+		load('semester');
+		break;
+
+	case 'logout':
+		cekLogin();
+		session_destroy();
+
+		redirect('?p=login');
+		break;
+		
 	default:
+		die('404 Not Found');
 		break;
 }

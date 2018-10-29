@@ -3,7 +3,6 @@
 
 class Session
 {
-
 	static function sess($name, $val = NULL){
 		if(empty($val)){
 			if(isset($_SESSION[$name])){
