@@ -24,8 +24,9 @@
 	<div class="col-md-8">
 		<div class="card">
 			<div class="card-body">
-				<p align="right" id="max_pertanyaan">Jumlah pertanyaan : <span id="jumlah_pertanyaan">0</span>/40</p>
+				<p align="right" id="max_pertanyaan">Jumlah pertanyaan : <span id="jumlah_pertanyaan">0</span>/<?php echo ($kuesioner->jumlah == 0) ? '40' : 40-$kuesioner->jumlah ?></p>
 				<form method="POST">
+					<input type="hidden" name="id_form" value="<?php echo $kuesioner->id_form ?>">
 					<div id="form_pertanyaan">
 						
 					</div>
@@ -61,16 +62,19 @@
 			}else{
 				$('#button_simpan').hide();
 			}
+
+			return jml;
 		}
 
 		//index pertanyaan
-		var index = 0, max = 40;
+		var index = 0, max = 40 - parseInt('<?php echo $kuesioner->jumlah ?>');
 
 
 		$('#button_pertanyaan').click(function(){
 			var append_form = '', 
 				append_opsi = '', 
-				jumlah_opsi = parseInt($('#jumlah_opsi').val());
+				jumlah_opsi = parseInt($('#jumlah_opsi').val()),
+				jumlah_pertanyaan = getJumlahPertanyaan(); 
 
 			if(jumlah_opsi > 5){
 				alert('Jumlah opsi maksimal 5!');
@@ -82,7 +86,7 @@
 				return false;
 			}
 
-			if(index < max){
+			if(jumlah_pertanyaan < max){
 
 				if(tipe_pertanyaan == 'opsional'){
 					append_opsi += '<div class="form-group">'+
@@ -96,7 +100,7 @@
 
 				append_form =   '<div id="pertanyaan_'+index+'">'+
 									'<div class="form-group">'+
-										'<input type="hidden" name="tipe['+index+']" class="form-control">'+
+										'<input type="hidden" name="tipe['+index+']" class="form-control" value="'+tipe_pertanyaan+'">'+
 										'<label><b>Pertanyaan ke-'+(index+1)+' : </b></label>'+
 										'<button type="button" data-id="pertanyaan_'+index+'" style="margin-left:10px;padding: 3px;margin-bottom: 5px" class="btn btn-danger btn-xs delete_pertanyaan"><i class="ti-trash"></i> Hapus</button>'+
 										'<input type="text" name="pertanyaan['+index+']" class="form-control" placeholder="Masukan pertanyaan...">'+
@@ -108,10 +112,17 @@
 
 				$('#form_pertanyaan').append(append_form);
 				index++;
-				getJumlahPertanyaan();
 			}else{
 				$('#max_pertanyaan').css('color', 'red');
 				alert('Pertanyaan sudah penuh!');
+			}
+		});
+
+		$(document).on('click', '.delete_pertanyaan', function(){
+			var id = $(this).attr('data-id');
+			if(confirm('Apakah yang ingin dihapus?')){
+				$('#'+id).remove();
+				console.log(id);
 			}
 		});
 

@@ -4,7 +4,7 @@
 	<div class="col-md-8">
 		<div class="card">
 			<div class="card-body">
-				<form method="POST">
+				<form method="POST" method="POST">
 					<div class="form-group">
 						<label>Semester</label>
 						<select name="semester" class="form-control">
