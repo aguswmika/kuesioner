@@ -53,4 +53,13 @@ class Semester
 		]);
 	}
 
+	static public function delete($id){
+		$sql = "DELETE FROM semester WHERE id_semester = ?";
+
+		$prep = DB::conn()->prepare($sql);
+		return $prep->execute([
+			$id
+		]);
+	}
+
 }

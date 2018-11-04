@@ -16,13 +16,7 @@
             <nav>
                 <ul class="metismenu" id="menu">
                     <li <?php if(Input::get('p') == 'dashboard') echo 'class="active"'; ?>><a href="<?php echo base_url('?p=dashboard') ?>"><i class="ti-dashboard"></i> <span>dashboard</span></a></li>
-                    <li <?php if(Input::get('p') == 'kuesioner') echo 'class="active"'; ?>>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-book"></i><span>Kuesioner</span></a>
-                        <ul class="collapse">
-                            <li <?php if(Input::get('act') == 'insert') echo 'class="active"'; ?>><a href="<?php echo base_url('?p=kuesioner&act=insert') ?>">Tambah Kuesioner</a></li>
-                            <li <?php if(Input::get('act') == 'archive') echo 'class="active"'; ?>><a href="<?php echo base_url('?p=kuesioner&act=archive') ?>">Arsip Kuesioner</a></li>
-                        </ul>
-                    </li>
+                    <li <?php if(Input::get('p') == 'kuesioner') echo 'class="active"'; ?>><a href="<?php echo base_url('?p=kuesioner') ?>"><i class="ti-book"></i> <span>Kuesioner</span></a></li>
                     <li <?php if(Input::get('p') == 'semester') echo 'class="active"'; ?>><a href="<?php echo base_url('?p=semester') ?>"><i class="ti-agenda"></i> <span>Semester</span></a></li>
                 </ul>
             </nav>

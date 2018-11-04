@@ -10,13 +10,46 @@
 ?>
 
 <div class="row mt-5">
+	<div class="col-md-8">
+		<div class="card">
+			<div class="card-body">
+				<form method="POST" method="POST">
+					<div class="form-group">
+						<label>Semester</label>
+						<select name="semester" class="form-control">
+							<option value="">-- Pilih --</option>
+							<?php foreach ($semester as $item) { ?>
+								<option <?php if($item->id_semester === $kuesioner->id_semester) echo "selected" ?> value="<?php echo $item->id_semester ?>"><?php echo $item->tahun ?> - <?php echo ucfirst($item->nama_semester) ?></option>
+							<?php } ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Nama Kuesioner</label>
+						<input type="text" class="form-control" name="nama" value="<?php echo $kuesioner->nama ?>">
+					</div>
+					<div class="form-group">
+						<label>Status</label>
+						<select name="status" class="form-control">
+							<option value="aktif">Aktif</option>
+							<option value="nonaktif" <?php if ($kuesioner->status == 'nonaktif') echo "selected" ?>>Nonaktif</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-warning">Edit</button>
+					<a href="<?php echo base_url('?p=kuesioner') ?>" class="btn btn-primary">Kembali</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mt-5">
 	<div class="col-md-12">
 		<?php echo Session::flash('error'); ?>
 	</div>
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="header-title">Arsip Kuesioner</h4>
+				<h4 class="header-title">List Pertanyaan</h4>
 				<div class="mb-3">
 					<a href="<?php echo base_url('?p=kuesioner&act=insert') ?>" class="btn btn-success">Tambah</a>
 				</div>
@@ -25,38 +58,29 @@
 						<thead class="bg-light text-capitalize">
 							<tr>
 								<th>No</th>
-								<th>Nama</th>
-								<th>Semester</th>
-								<th>Jumlah Pertanyaan</th>
-								<th>Tanggal dibuat</th>
-								<th>Status</th>
+								<th>Judul pertanyaan</th>
+								<th>Tipe</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 
 								$no = 1;
-								foreach ($kuesioner as $item) { 
+								foreach ($kuesioners as $item) { 
 							?>
 								<tr>
 									<td><?php echo $no++; ?></td>
 									<td>
 										<?php 
-											echo (strlen($item->nama) > 80)  ?
-												 substr($item->nama, 0, 80) : $item->nama;
+											echo (strlen($item->pertanyaan) > 80)  ?
+												 substr($item->pertanyaan, 0, 80) : $item->pertanyaan;
 										?>
 										
 									</td>
-									<td><?php echo $item->tahun_semester.' - '.ucfirst($item->nama_semester); ?></td>
-									<td><label class="badge badge-dark"><?php echo $item->jumlah ?></label></td>
-									<td><?php echo date('d-m-Y H:i', strtotime($item->tanggal)); ?></td>
-									<td><label class="badge badge-success"><?php echo ucfirst($item->status) ?></label></td>
+									<td><label class="badge badge-info"><?php echo ucfirst($item->tipe) ?></label></td>
 									<td>
-										<div style="margin-bottom: 5px">
-											<a href="<?php echo base_url('?p=kuesioner&act=insert_question&id='.$item->id_form) ?>" class="btn btn-info btn-xs">Tambah Pertanyaan</a>
-										</div>
-										<a href="<?php echo base_url('?p=kuesioner&act=edit&id='.$item->id_form) ?>" class="btn btn-warning btn-xs">Edit</a>
-										<form action="<?php echo base_url('?p=kuesioner&act=delete') ?>" style="display: inline-block;" method="post">
+										<a href="<?php echo base_url('?p=kuesioner&act=edit_question&id='.$item->id_form) ?>" class="btn btn-warning btn-xs">Edit</a>
+										<form action="<?php echo base_url('?p=kuesioner&act=delete_question') ?>" style="display: inline-block;" method="post">
 											<input type="hidden" name="id" value="<?php echo $item->id_form ?>">
 											<button type="submit" class="btn btn-danger btn-xs">Hapus</button>
 										</form>

@@ -29,7 +29,7 @@ function cekPost(){
 }
 
 function autoNum($table, $id, $code){
-	$date = date('Ym');
+	//$date = date('Ym');
 	$sql = "SELECT max({$id}) as max FROM {$table}";
 
 	$prep = DB::conn()->prepare($sql);
@@ -37,14 +37,14 @@ function autoNum($table, $id, $code){
 		$item = $prep->fetch(PDO::FETCH_OBJ);
 
 
-		$num   = (int) substr($item->max, 9);
+		$num   = (int) substr($item->max, 1);
 		$num++;
-		$count = str_pad($num, 3, "0", STR_PAD_LEFT);
+		$count = str_pad($num, 4, "0", STR_PAD_LEFT);
 
 
-		return $code."-".$date.$count;
+		return $code.$count;
 	}else{
-		return $code."-".$date.'001';
+		return $code.'0001';
 	}
 
 }

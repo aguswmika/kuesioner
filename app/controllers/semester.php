@@ -55,6 +55,21 @@ switch ($url) {
 		}
 		break;
 	
+
+	case 'delete':
+		//ambil id dari link ?id='blabla'
+		$id = Input::post('id');
+
+		//manggil fungsi dari class Semester
+		//fungsi untuk menghapus record di table semester
+		if(Semester::delete($id)){
+			msg('Berhasil dihapus', 'success');
+			redirect('?p=semester&act=index');
+		}else{
+			msg('Berhasil dihapu', 'danger');
+			redirect('?p=semester&act=index');
+		}
+		break;
 	default:
 		die('404 Not Found');
 		break;

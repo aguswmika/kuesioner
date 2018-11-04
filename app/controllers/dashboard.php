@@ -2,6 +2,8 @@
 
 $url = !empty(Input::get('act')) ? Input::get('act') : 'index';
 
+model('semester');
+
 switch ($url) {
 	case 'index':
 		$breadcrumbs = '
@@ -14,7 +16,8 @@ switch ($url) {
 
 		$data = [
 			'title' 		=> 'Dashboard',
-			'breadcrumbs' 	=> $breadcrumbs
+			'breadcrumbs' 	=> $breadcrumbs,
+			'semester'		=> Semester::getAll()
 		];
 
 		view('dashboard/index', $data);

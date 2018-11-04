@@ -60,7 +60,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="header-title">List Semester</h4>
+				<h4 class="header-title">Arsip Semester</h4>
 				<div class="data-tables">
 					<table id="dataTable" class="text-center">
 						<thead class="bg-light text-capitalize">
@@ -82,7 +82,10 @@
 									<td><?php echo $item->tahun; ?></td>
 									<td>
 										<a href="<?php echo base_url('?p=semester&act=index&id='.$item->id_semester) ?>" class="btn btn-warning btn-xs">Edit</a>
-										<a href="<?php echo base_url('?p=semester&act=delete&id='.$item->id_semester) ?>" class="btn btn-danger btn-xs">Hapus</a>
+										<form action="<?php echo base_url('?p=semester&act=delete') ?>" style="display: inline-block;" method="post">
+											<input type="hidden" name="id" value="<?php echo $item->id_semester ?>">
+											<button type="submit" class="btn btn-danger btn-xs">Hapus</button>
+										</form>
 									</td>
 								</tr>
 							<?php } ?>
