@@ -79,7 +79,7 @@
 									</td>
 									<td><label class="badge badge-info"><?php echo ucfirst($item->tipe) ?></label></td>
 									<td>
-										<a href="<?php echo base_url('?p=kuesioner&act=edit_question&id='.$item->id_form) ?>" class="btn btn-warning btn-xs">Edit</a>
+										<a href="<?php echo base_url('?p=kuesioner&act=edit_question&id='.$item->id_pertanyaan) ?>" class="btn btn-warning btn-xs">Edit</a>
 										<form action="<?php echo base_url('?p=kuesioner&act=delete_question') ?>" style="display: inline-block;" method="post">
 											<input type="hidden" name="id" value="<?php echo $item->id_form ?>">
 											<button type="submit" class="btn btn-danger btn-xs">Hapus</button>
