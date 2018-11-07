@@ -30,7 +30,7 @@
 					<div id="form_pertanyaan">
 						
 					</div>
-					<button type="submit" class="btn btn-success" id="button_simpan" style="display: none">Tambah</button>
+					<button type="submit" class="btn btn-success" id="button_simpan" style="display: none">Simpan</button>
 					<a href="<?php echo base_url('?p=kuesioner') ?>" class="btn btn-primary">Kembali</a>
 				</form>
 			</div>
@@ -111,6 +111,7 @@
 
 
 				$('#form_pertanyaan').append(append_form);
+				getJumlahPertanyaan();
 				index++;
 			}else{
 				$('#max_pertanyaan').css('color', 'red');
@@ -122,7 +123,8 @@
 			var id = $(this).attr('data-id');
 			if(confirm('Apakah yang ingin dihapus?')){
 				$('#'+id).remove();
-				console.log(id);
+				getJumlahPertanyaan();
+				//console.log(id);
 			}
 		});
 

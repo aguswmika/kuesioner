@@ -14,12 +14,11 @@ switch ($url) {
 	            </ul>
 	        ';
 
-	        $id = Input::get('id');
+	        $id 	= Input::get('id');
 	        $except = '';
 
 			if(!empty($id)){
-				$data['singleSemester'] = Semester::getSingle($id);
-				$except = $id;
+				$except                 = $id;
 			}
 
 
@@ -29,7 +28,9 @@ switch ($url) {
 				'semester'		=> Semester::getAll($except)
 			];
 
-			
+			if(!empty($id)){
+				$data['singlesemester'] = Semester::getSingle($id);
+			}
 
 			view('semester/index', $data);
 		}else{

@@ -23,7 +23,7 @@
 				<form method="POST">
 					<div class="form-group">
 						<label>Tipe semester</label>
-						<?php if(empty($singleSemester)){ ?>
+						<?php if(empty($singlesemester)){ ?>
 							<select name="tipe" class="form-control">
 								<option value="ganjil">Ganjil</option>
 								<option value="genap">Genap</option>
@@ -31,13 +31,13 @@
 						<?php }else{ ?>
 							<select name="tipe" class="form-control">
 								<option value="ganjil">Ganjil</option>
-								<option value="genap" <?php if($singleSemester->nama_semester == 'genap') echo 'selected'; ?>>Genap</option>
+								<option value="genap" <?php if($singlesemester->nama_semester == 'genap') echo 'selected'; ?>>Genap</option>
 							</select>
 						<?php } ?>
 					</div>
 					<div class="form-group">
 						<label>Tahun</label>
-						<input type="number" class="form-control" maxlength="4" name="tahun" value="<?php if(empty($singleSemester)) echo date('Y'); else echo $singleSemester->tahun; ?>">
+						<input type="number" class="form-control" maxlength="4" name="tahun" value="<?php if(empty($singlesemester->tahun)) echo date('Y'); else echo $singlesemester->tahun; ?>">
 					</div>
 					<div class="form-group">
 						<?php if(empty(Input::get('id'))) { ?>

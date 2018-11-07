@@ -10,6 +10,9 @@
 ?>
 
 <div class="row mt-5">
+	<div class="col-md-12">
+		<?php echo Session::flash('error'); ?>
+	</div>
 	<div class="col-md-8">
 		<div class="card">
 			<div class="card-body">
@@ -44,14 +47,11 @@
 
 <div class="row mt-5">
 	<div class="col-md-12">
-		<?php echo Session::flash('error'); ?>
-	</div>
-	<div class="col-md-12">
 		<div class="card">
 			<div class="card-body">
 				<h4 class="header-title">List Pertanyaan</h4>
 				<div class="mb-3">
-					<a href="<?php echo base_url('?p=kuesioner&act=insert') ?>" class="btn btn-success">Tambah</a>
+					<a href="<?php echo base_url('?p=kuesioner&act=insert_question&id='.$kuesioner->id_form) ?>" class="btn btn-success">Tambah</a>
 				</div>
 				<div class="data-tables">
 					<table id="dataTable" class="text-center">

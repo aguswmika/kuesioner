@@ -10,7 +10,7 @@ switch ($url) {
 		$breadcrumbs = '
 			<h4 class="page-title pull-left">Kuesioner</h4>
             <ul class="breadcrumbs pull-left">
-                <li><a href="'.base_url('?p=dashbaord').'">Home</a></li>
+                <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
                 <li><span>Semester</span></li>
             </ul>
         ';
@@ -29,7 +29,7 @@ switch ($url) {
 			$breadcrumbs = '
 				<h4 class="page-title pull-left">Tambah Kuesioner</h4>
 	            <ul class="breadcrumbs pull-left">
-	                <li><a href="'.base_url('?p=dashbaord').'">Home</a></li>
+	                <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
 	                <li><a href="'.base_url('?p=kuesioner').'">Kuesioner</a></li>
 	                <li><span>Tambah</span></li>
 	            </ul>
@@ -57,11 +57,11 @@ switch ($url) {
 		$id = Input::get('id');
 		if(cekPost() == false){
 			$kuesioner = Kuesioner::getSingle($id);
-			$kuesioners = Kuesioner::getAllQuestion();
+			$kuesioners = Kuesioner::getAllQuestion($id);
 			$breadcrumbs = '
 				<h4 class="page-title pull-left">Edit Kuesioner</h4>
 	            <ul class="breadcrumbs pull-left">
-	                <li><a href="'.base_url('?p=dashbaord').'">Home</a></li>
+	                <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
 	                <li><a href="'.base_url('?p=kuesioner').'">Kuesioner</a></li>
 	                <li><span>Edit</span></li>
 	            </ul>
@@ -88,14 +88,14 @@ switch ($url) {
 		break;
 
 	case 'insert_question':
+		$id = Input::get('id');
 		if(cekPost() == false){
-			$id = Input::get('id');
 	        $kuesioner = Kuesioner::getSingle($id);
 
 			$breadcrumbs = '
 				<h4 class="page-title pull-left">Tambah Pertanyaan</h4>
 	            <ul class="breadcrumbs pull-left">
-	                <li><a href="'.base_url('?p=dashbaord').'">Home</a></li>
+	                <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
 	                <li><a href="'.base_url('?p=kuesioner').'">Kuesioner ('.$kuesioner->nama.')</a></li>
 	                <li><span>Tambah Pertanyaan</span></li>
 	            </ul>
@@ -111,44 +111,44 @@ switch ($url) {
 		}else{
 			if(Kuesioner::insert_question()){
 				msg('Berhasil menambahkan', 'success');
-				redirect('?p=kuesioner&act=insert_question');
+				redirect('?p=kuesioner&act=insert_question&id='.$id);
 			}else{
 				msg('Gagal menambahkan', 'danger');
-				redirect('?p=kuesioner&act=insert_question');
+				redirect('?p=kuesioner&act=insert_question&id='.$id);
 			}
 		}
 		break;
 
 	case 'edit_question':
 		$id = Input::get('id');
+		$pertanyaan = Kuesioner::getSingleQuestion($id);
 		if(cekPost() == false){
-			$pertanyaan = Kuesioner::getSingleQuestion($id);
-			$opsi	    = Kuesioner::getAllOpsi($pertanyaan->id_pertanyaan);
+			$opsi	    = Kuesioner::getAllOption($pertanyaan->id_pertanyaan);
 
 			$breadcrumbs = '
 				<h4 class="page-title pull-left">Edit Pertanyaan</h4>
 	            <ul class="breadcrumbs pull-left">
-	                <li><a href="'.base_url('?p=dashbaord').'">Home</a></li>
+	                <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
 	                <li><a href="'.base_url('?p=kuesioner').'">Kuesioner</a></li>
 	                <li><span>Pertanyaan</span></li>
 	            </ul>
 	        ';
 
 			$data = [
-				'title'			=> 'Edit Pertanyaan ('.$pertanyaan->judul.')',
+				'title'			=> 'Edit Pertanyaan ('.$pertanyaan->pertanyaan.')',
 				'breadcrumbs' 	=> $breadcrumbs,
-				'semester'		=> Semester::getAll(),
-				'pertanyaan'		=> $pertanyaan,
+				'pertanyaan'	=> $pertanyaan,
+				'opsi'			=> $opsi
 			];
 
-			view('kuesioner/edit', $data);
+			view('kuesioner/edit_question', $data);
 		}else{
-			if(Kuesioner::edit($id)){
+			if(Kuesioner::edit_question($id)){
 				msg('Berhasil mengubah', 'success');
-				redirect('?p=kuesioner');
+				redirect('?p=kuesioner&act=edit&id='.$pertanyaan->id_form);
 			}else{
 				msg('Gagal mengubah', 'danger');
-				redirect('?p=kuesioner');
+				redirect('?p=kuesioner&act=edit&id='.$pertanyaan->id_form);
 			}
 		}
 		break;
