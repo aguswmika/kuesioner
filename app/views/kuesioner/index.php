@@ -41,10 +41,12 @@
 								<tr>
 									<td><?php echo $no++; ?></td>
 									<td>
-										<?php 
-											echo (strlen($item->nama) > 80)  ?
-												 substr($item->nama, 0, 80) : $item->nama;
-										?>
+										<a href="<?php echo base_url('?p=front_end&slug='.$item->slug) ?>">
+											<?php 
+												echo (strlen($item->nama) > 80)  ?
+													 substr($item->nama, 0, 80) : $item->nama;
+											?>
+										</a>
 										
 									</td>
 									<td><?php echo $item->tahun_semester.' - '.ucfirst($item->nama_semester); ?></td>

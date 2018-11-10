@@ -9,21 +9,21 @@
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css') ?>">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/metisMenu.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slicknav.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/themify-icons.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/metisMenu.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/owl.carousel.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/slicknav.min.css') ?>">
 
     <?php if(!empty($css)) echo $css ?>
 
     <!-- others css -->
-    <link rel="stylesheet" href="assets/css/typography.css">
-    <link rel="stylesheet" href="assets/css/default-css.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/typography.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/default-css.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/styles.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/responsive.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css') ?>">
     <!-- modernizr css -->
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="<?php echo base_url('assets/js/vendor/modernizr-2.8.3.min.js') ?>"></script>
 </head>
 
 <body>

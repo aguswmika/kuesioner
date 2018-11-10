@@ -17,6 +17,21 @@ class Kuesioner
 		return $prep->fetch(PDO::FETCH_OBJ);
 	}
 
+	static function getSingleSlug($id){
+		$sql = "SELECT 
+					form.*, 
+					semester.id_semester, 
+					semester.nama_semester, 
+					semester.tahun as tahun_semester, 
+					(SELECT COUNT(form_pertanyaan.id_pertanyaan) FROM form_pertanyaan WHERE form_pertanyaan.id_form = form.id_form) as jumlah 
+				FROM form INNER JOIN semester ON semester.id_semester = form.id_semester WHERE form.slug = ?";
+
+		$prep = DB::conn()->prepare($sql);
+		$prep->execute([$id]);
+
+		return $prep->fetch(PDO::FETCH_OBJ);
+	}
+
 	static function getSingleQuestion($id){
 		$sql = "SELECT * FROM form_pertanyaan WHERE id_pertanyaan = ?";
 

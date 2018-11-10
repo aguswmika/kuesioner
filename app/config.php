@@ -2,5 +2,5 @@
 
 $_HOST = 'localhost';
 $_USER = 'root'; 
-$_PASS = '';
+$_PASS = 'root';
 $_DB   = 'kuesioner';
