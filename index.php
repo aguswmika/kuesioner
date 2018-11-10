@@ -20,6 +20,10 @@ switch ($url) {
 		load('dashboard');
 		break;
 
+		case 'front_end':
+			load('front_end');
+			break;
+
 	case 'login':
 		cekStatus();
 
@@ -28,7 +32,7 @@ switch ($url) {
 			$data = [
 				'title' => 'Login Pengguna'
 			];
-			
+
 			view('sign/login', $data);
 		}else{
 			$config = [
@@ -73,7 +77,7 @@ switch ($url) {
 
 		redirect('?p=login');
 		break;
-		
+
 	default:
 		die('404 Not Found');
 		break;

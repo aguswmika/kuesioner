@@ -1,7 +1,7 @@
     <?php
-        if(Session::sess('is_login')){
-    ?> 
-           
+        if(Session::sess('is_login') && Input::get('p') != 'front_end'){
+    ?>
+
             </div>
         </div>
         <!-- main content area end -->
@@ -26,8 +26,8 @@
     <script src="assets/js/jquery.slicknav.min.js"></script>
 
     <?php if(!empty($js)) echo $js ?>
-    
-    
+
+
     <!-- others plugins -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/metisMenu.css">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/slicknav.min.css">
-    
+
     <?php if(!empty($css)) echo $css ?>
 
     <!-- others css -->
@@ -37,13 +37,13 @@
     </div>
     <!-- preloader area end -->
     <?php
-        if(Session::sess('is_login')){
+        if(Session::sess('is_login') && Input::get('p') != 'front_end'){
     ?>
     <!-- page container area start -->
     <div class="page-container">
     <?php } ?>
     <?php
-        if(Session::sess('is_login')){
+        if(Session::sess('is_login') && Input::get('p') != 'front_end'){
             view('layouts/sidebar')
     ?>
     <!-- main content area start -->
