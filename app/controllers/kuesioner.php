@@ -43,12 +43,30 @@ switch ($url) {
 
 			view('kuesioner/insert', $data);
 		}else{
-			if(Kuesioner::insert()){
-				msg('Berhasil menambahkan', 'success');
-				redirect('?p=kuesioner');
+			$config = [
+				'semester' => [
+					'required' => true
+				],
+				'nama' => [
+					'required' => true
+				],
+				'status'	=> [
+					'required' => true
+				]
+			];
+
+			$valid = new Validation($config);
+			if($valid->run()){
+				if(Kuesioner::insert()){
+					msg('Berhasil menambahkan', 'success');
+					redirect('?p=kuesioner');
+				}else{
+					msg('Gagal menambahkan', 'danger');
+					redirect('?p=kuesioner');
+				}
 			}else{
-				msg('Gagal menambahkan', 'danger');
-				redirect('?p=kuesioner');
+				msg($valid->getErrors(), 'danger');
+				redirect('?p=kuesioner&act=insert');
 			}
 		}
 		break;

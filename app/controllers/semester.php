@@ -37,11 +37,26 @@ switch ($url) {
 			$id = Input::get('id');
 
 			if(empty($id)){
-				if(Semester::insert()){
-					msg('Berhasil menambahkan', 'success');
-					redirect('?p=semester&act=index');
+				$config = [
+					'tipe' => [
+						'required' => true
+					],
+					'tahun' => [
+						'required' => true
+					]
+				];
+
+				$valid = new Validation($config);
+				if($valid->run()){
+					if(Semester::insert()){
+						msg('Berhasil menambahkan', 'success');
+						redirect('?p=semester&act=index');
+					}else{
+						msg('Gagal menambahkan', 'danger');
+						redirect('?p=semester&act=index');
+					}
 				}else{
-					msg('Gagal menambahkan', 'danger');
+					msg($valid->getErrors(), 'danger');
 					redirect('?p=semester&act=index');
 				}
 			}else{

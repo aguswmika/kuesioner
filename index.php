@@ -31,10 +31,25 @@ switch ($url) {
 			
 			view('sign/login', $data);
 		}else{
-			if(Admin::login() == true){
-				redirect('?p=dashboard');
+			$config = [
+				'email' => [
+					'required' => true
+				],
+				'password' => [
+					'required' => true
+				]
+			];
+
+			$valid = new Validation($config);
+			if($valid->run()){
+				if(Admin::login() == true){
+					redirect('?p=dashboard');
+				}else{
+					msg('Username atau Password Anda Salah', 'danger');
+					redirect('?p=login');
+				}
 			}else{
-				msg('Username atau Password Anda Salah', 'danger');
+				msg($valid->getErrors(), 'danger');
 				redirect('?p=login');
 			}
 		}

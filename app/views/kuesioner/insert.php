@@ -1,6 +1,9 @@
 <?php view('layouts/header', $data) ?>
 
 <div class="row mt-5">
+	<div class="col-md-12">
+		<?php echo Session::flash('error'); ?>
+	</div>
 	<div class="col-md-8">
 		<div class="card">
 			<div class="card-body">
