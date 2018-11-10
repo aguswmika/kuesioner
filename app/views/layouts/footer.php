@@ -8,7 +8,7 @@
        <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2018 . All right reserved</p>
+                <p>© Copyright <?php echo date('Y') ?> . All right reserved</p>
             </div>
         </footer>
         <!-- footer area end-->

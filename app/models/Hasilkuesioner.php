@@ -2,6 +2,18 @@
 
 class Hasilkuesioner
 {
+
+	/*
+
+	SELECT 
+	form.id_form, (SELECT COUNT(hasil_kuesioner.id_pertanyaan) FROM hasil_kuesioner WHERE hasil_kuesioner.id_pertanyaan = form_pertanyaan.id_pertanyaan) as hasil
+	FROM form
+    INNER JOIN form_pertanyaan 
+    ON form_pertanyaan.id_form = form.id_form
+    WHERE (SELECT COUNT(hasil_kuesioner.id_pertanyaan) FROM hasil_kuesioner WHERE hasil_kuesioner.id_pertanyaan = form_pertanyaan.id_pertanyaan) > 0
+    GROUP BY form.id_form
+	
+	*/
 	static function insert(){
 		$id_pertanyaan 	= Input::post('id_pertanyaan');
 		$tipe			= Input::post('tipe');

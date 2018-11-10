@@ -41,7 +41,7 @@
 								<tr>
 									<td><?php echo $no++; ?></td>
 									<td>
-										<a href="<?php echo base_url('?p=front_end&slug='.$item->slug) ?>">
+										<a href="<?php echo base_url('view/'.$item->slug) ?>" target="_blank">
 											<?php 
 												echo (strlen($item->nama) > 80)  ?
 													 substr($item->nama, 0, 80) : $item->nama;
