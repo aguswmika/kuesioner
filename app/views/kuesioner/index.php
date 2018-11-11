@@ -28,6 +28,7 @@
 								<th>Nama</th>
 								<th>Semester</th>
 								<th>Jumlah Pertanyaan</th>
+								<th>Jumlah Jawaban</th>
 								<th>Tanggal dibuat</th>
 								<th>Status</th>
 								<th>Aksi</th>
@@ -51,14 +52,18 @@
 									</td>
 									<td><?php echo $item->tahun_semester.' - '.ucfirst($item->nama_semester); ?></td>
 									<td><label class="badge badge-dark"><?php echo $item->jumlah ?></label></td>
+									<td><label class="badge badge-light"><?php echo $item->jumlah_jawaban ?></label></td>
 									<td><?php echo date('d-m-Y H:i', strtotime($item->tanggal)); ?></td>
 									<td><label class="badge badge-success"><?php echo ucfirst($item->status) ?></label></td>
 									<td>
 										<div style="margin-bottom: 5px">
 											<a href="<?php echo base_url('?p=kuesioner&act=insert_question&id='.$item->id_form) ?>" class="btn btn-info btn-xs">Tambah Pertanyaan</a>
 										</div>
+										<div style="margin-bottom: 5px">
+											<a href="<?php echo base_url('?p=kuesioner&act=view_answer&id='.$item->id_form) ?>" class="btn btn-primary btn-xs">Lihat Jawaban</a>
+										</div>
 										<a href="<?php echo base_url('?p=kuesioner&act=edit&id='.$item->id_form) ?>" class="btn btn-warning btn-xs">Edit</a>
-										<form action="<?php echo base_url('?p=kuesioner&act=delete') ?>" style="display: inline-block;" method="post">
+										<form action="<?php echo base_url('?p=kuesioner&act=delete') ?>" style="display: inline-block;" method="post" onclick="return confirm('Apakah yakin ingin dihapus?')">
 											<input type="hidden" name="id" value="<?php echo $item->id_form ?>">
 											<button type="submit" class="btn btn-danger btn-xs">Hapus</button>
 										</form>
