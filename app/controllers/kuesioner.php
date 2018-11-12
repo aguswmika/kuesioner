@@ -96,12 +96,30 @@ switch ($url) {
 
 			view('kuesioner/edit', $data);
 		}else{
-			if(Kuesioner::edit($id)){
-				msg('Berhasil mengubah', 'success');
-				redirect('?p=kuesioner');
+			$config = [
+				'semester' => [
+					'required' => true
+				],
+				'nama' => [
+					'required' => true
+				],
+				'status'	=> [
+					'required' => true
+				]
+			];
+
+			$valid = new Validation($config);
+			if($valid->run()){
+				if(Kuesioner::edit($id)){
+					msg('Berhasil mengubah', 'success');
+					redirect('?p=kuesioner');
+				}else{
+					msg('Gagal mengubah', 'danger');
+					redirect('?p=kuesioner');
+				}
 			}else{
-				msg('Gagal mengubah', 'danger');
-				redirect('?p=kuesioner');
+				msg($valid->getErrors(), 'danger');
+				redirect('?p=kuesioner&act=edit&id='.$id);
 			}
 		}
 		break;

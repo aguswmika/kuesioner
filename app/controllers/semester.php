@@ -60,11 +60,26 @@ switch ($url) {
 					redirect('?p=semester&act=index');
 				}
 			}else{
-				if(Semester::update($id)){
-					msg('Berhasil diubah', 'success');
-					redirect('?p=semester&act=index');
+				$config = [
+					'tipe' => [
+						'required' => true
+					],
+					'tahun' => [
+						'required' => true
+					]
+				];
+
+				$valid = new Validation($config);
+				if($valid->run()){
+					if(Semester::update($id)){
+						msg('Berhasil diubah', 'success');
+						redirect('?p=semester&act=index');
+					}else{
+						msg('Gagal diubah', 'danger');
+						redirect('?p=semester&act=index');
+					}
 				}else{
-					msg('Gagal diubah', 'danger');
+					msg($valid->getErrors(), 'danger');
 					redirect('?p=semester&act=index');
 				}
 			}
