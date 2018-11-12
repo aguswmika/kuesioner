@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 02, 2018 at 11:53 AM
+-- Generation Time: Nov 12, 2018 at 11:24 AM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -50,11 +50,14 @@ CREATE TABLE `form` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `form`
+-- Triggers `form`
 --
-
-INSERT INTO `form` (`id_form`, `nama`, `id_semester`, `tanggal`, `status`, `slug`) VALUES
-('F0001', 'Mahasiswa Aktif', 15, '2018-10-31 22:01:23', 'aktif', 'mahasiswa-aktif');
+DELIMITER $$
+CREATE TRIGGER `form_ondelete` BEFORE DELETE ON `form` FOR EACH ROW BEGIN
+  DELETE FROM form_pertanyaan WHERE id_form = old.id_form;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -70,13 +73,15 @@ CREATE TABLE `form_pertanyaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `form_pertanyaan`
+-- Triggers `form_pertanyaan`
 --
-
-INSERT INTO `form_pertanyaan` (`id_pertanyaan`, `id_form`, `pertanyaan`, `tipe`) VALUES
-(1, 'F0001', 'Siapa saya?', 'opsional'),
-(2, 'F0001', 'Bahasa inggrisnya brute force?', 'esay'),
-(3, 'F0001', '1+1 = ?', 'opsional');
+DELIMITER $$
+CREATE TRIGGER `form_pertanyaan_ondelete` BEFORE DELETE ON `form_pertanyaan` FOR EACH ROW BEGIN
+      DELETE FROM hasil_kuesioner WHERE id_pertanyaan = old.id_pertanyaan;
+  DELETE FROM opsi WHERE id_pertanyaan = old.id_pertanyaan;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -87,8 +92,8 @@ INSERT INTO `form_pertanyaan` (`id_pertanyaan`, `id_form`, `pertanyaan`, `tipe`)
 CREATE TABLE `hasil_kuesioner` (
   `id_hasil` int(11) NOT NULL,
   `id_pertanyaan` int(11) NOT NULL,
-  `id_opsi` int(11) NOT NULL,
-  `hasil_esay` varchar(255) NOT NULL
+  `id_opsi` int(11) DEFAULT NULL,
+  `hasil_esay` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -103,19 +108,6 @@ CREATE TABLE `opsi` (
   `value` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `opsi`
---
-
-INSERT INTO `opsi` (`id_opsi`, `id_pertanyaan`, `value`) VALUES
-(1, 1, 'Agus'),
-(2, 1, 'Wahyu'),
-(3, 1, 'Widiatmika'),
-(4, 1, 'I'),
-(5, 1, 'Putu'),
-(6, 3, '1'),
-(7, 3, '3');
-
 -- --------------------------------------------------------
 
 --
@@ -127,14 +119,6 @@ CREATE TABLE `semester` (
   `nama_semester` enum('ganjil','genap') NOT NULL,
   `tahun` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `semester`
---
-
-INSERT INTO `semester` (`id_semester`, `nama_semester`, `tahun`) VALUES
-(15, 'ganjil', 2018),
-(16, 'genap', 2018);
 
 --
 -- Indexes for dumped tables
@@ -189,7 +173,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `form_pertanyaan`
 --
 ALTER TABLE `form_pertanyaan`
-  MODIFY `id_pertanyaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pertanyaan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hasil_kuesioner`
@@ -201,13 +185,13 @@ ALTER TABLE `hasil_kuesioner`
 -- AUTO_INCREMENT for table `opsi`
 --
 ALTER TABLE `opsi`
-  MODIFY `id_opsi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_opsi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
