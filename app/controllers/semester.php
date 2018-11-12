@@ -82,7 +82,7 @@ switch ($url) {
 			msg('Berhasil dihapus', 'success');
 			redirect('?p=semester&act=index');
 		}else{
-			msg('Berhasil dihapu', 'danger');
+			msg('Berhasil dihapus', 'danger');
 			redirect('?p=semester&act=index');
 		}
 		break;

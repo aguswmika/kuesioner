@@ -14,6 +14,18 @@ class Hasilkuesioner
     GROUP BY form.id_form
 	
 	*/
+
+	static function getAll($id){
+		$sql    = "SELECT * FROM hasil_kuesioner WHERE id_pertanyaan = ?";
+		$param  = [$id];
+
+		$prep = DB::conn()->prepare($sql);
+		$prep->execute($param);
+
+		return $prep->fetchAll(PDO::FETCH_OBJ);
+	}
+
+
 	static function insert(){
 		$id_pertanyaan 	= Input::post('id_pertanyaan');
 		$tipe			= Input::post('tipe');

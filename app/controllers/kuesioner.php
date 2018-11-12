@@ -3,6 +3,7 @@
 $url = !empty(Input::get('act')) ? Input::get('act') : 'index';
 
 model('kuesioner');
+model('hasilkuesioner');
 model('semester');
 
 switch ($url) {
@@ -11,7 +12,7 @@ switch ($url) {
 			<h4 class="page-title pull-left">Kuesioner</h4>
             <ul class="breadcrumbs pull-left">
                 <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
-                <li><span>Semester</span></li>
+                <li><span>Kuesioner</span></li>
             </ul>
         ';
 
@@ -172,6 +173,59 @@ switch ($url) {
 		break;
 		
 	case 'delete':
+		//ambil id dari link ?id='blabla'
+		$id = Input::post('id');
+
+		//manggil fungsi dari class Kuesioner
+		//fungsi untuk menghapus record di table semester
+		if(Kuesioner::delete($id)){
+			msg('Berhasil dihapus', 'success');
+			redirect('?p=kuesioner&act=index');
+		}else{
+			msg('Berhasil dihapus', 'danger');
+			redirect('?p=kuesioner&act=index');
+		}
+		break;
+
+	case 'delete_pertanyaan':
+		//ambil id dari link ?id='blabla'
+		$id = Input::post('id');
+		$id_web = Input::get('last');
+
+		//manggil fungsi dari class Kuesioner
+		//fungsi untuk menghapus record di table semester
+		if(Kuesioner::delete_pertanyaan($id)){
+			msg('Berhasil dihapus', 'success');
+			redirect('?p=kuesioner&act=edit&id='.$id_web);
+		}else{
+			msg('Berhasil dihapus', 'danger');
+			redirect('?p=kuesioner&act=edit&id='.$id_web);
+		}
+		break;
+
+
+	case 'view_answer':
+		$id = Input::get('id');
+		$kuesioner = Kuesioner::getSingle($id);
+		$kuesioners = Kuesioner::getAllQuestion($kuesioner->id_form);
+
+		$breadcrumbs = '
+			<h4 class="page-title pull-left">Kuesioner</h4>
+            <ul class="breadcrumbs pull-left">
+                <li><a href="'.base_url('?p=dashboard').'">Home</a></li>
+                <li><a href="'.base_url('?p=kuesioner').'">Kuesioner</a></li>
+                <li><span>Lihat Jawaban</span></li>
+            </ul>
+        ';
+
+		$data = [
+			'title'			=> 'Lihat Jawaban Kuesioner '.$kuesioner->nama,
+			'breadcrumbs' 	=> $breadcrumbs,
+			'kuesioner'		=> $kuesioner,
+			'kuesioners'	=> $kuesioners
+		];
+
+		view('kuesioner/hasil', $data);
 
 		break;
 	

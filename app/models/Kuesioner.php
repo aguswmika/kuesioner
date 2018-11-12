@@ -42,7 +42,17 @@ class Kuesioner
 	}
 
 	static function getAll($except = ''){
-		$sql    = "SELECT form.*, semester.id_semester, semester.nama_semester, semester.tahun as tahun_semester, (SELECT COUNT(form_pertanyaan.id_pertanyaan) FROM form_pertanyaan WHERE form_pertanyaan.id_form = form.id_form) as jumlah FROM form";
+		$sql    = "SELECT 
+				   form.*, 
+				   semester.id_semester, 
+				   semester.nama_semester, 
+				   semester.tahun as tahun_semester, 
+				   (SELECT COUNT(form_pertanyaan.id_pertanyaan) FROM form_pertanyaan WHERE form_pertanyaan.id_form = form.id_form) as jumlah,
+				   (SELECT COUNT(hasil_kuesioner.id_pertanyaan) FROM hasil_kuesioner WHERE hasil_kuesioner.id_pertanyaan = form_pertanyaan.id_pertanyaan) as jumlah_jawaban
+				   FROM form
+				   LEFT JOIN form_pertanyaan 
+				   ON form_pertanyaan.id_form = form.id_form
+				   ";
 		$param  = [];
 
 		if(!empty($except)){
@@ -50,7 +60,7 @@ class Kuesioner
 			$param = [$except]; 
 		}
 
-		$sql .= " INNER JOIN semester ON semester.id_semester = form.id_semester";
+		$sql .= " INNER JOIN semester ON semester.id_semester = form.id_semester GROUP BY form.id_form";
 
 		$prep = DB::conn()->prepare($sql);
 		$prep->execute($param);
@@ -76,7 +86,11 @@ class Kuesioner
 	}
 
 	static function getAllOption($id){
-		$sql    = "SELECT * FROM opsi WHERE id_pertanyaan = ?";
+		$sql    = "SELECT 
+				   *, 
+				   (SELECT COUNT(id_opsi) FROM hasil_kuesioner WHERE hasil_kuesioner.id_opsi = opsi.id_opsi) as hasil
+    			   FROM opsi
+    			   WHERE opsi.id_pertanyaan = ?";
 		$param  = [$id];
 
 		// if(!empty($except)){
@@ -243,5 +257,23 @@ class Kuesioner
 			DB::conn()->rollBack();
 			die();
 		}
+	}
+
+	static public function delete($id){
+		$sql = "DELETE FROM form WHERE id_form = ?";
+
+		$prep = DB::conn()->prepare($sql);
+		return $prep->execute([
+			$id
+		]);
+	}
+	
+	static public function delete_pertanyaan($id){
+		$sql = "DELETE FROM form_pertanyaan WHERE id_pertanyaan = ?";
+		
+		$prep = DB::conn()->prepare($sql);
+		return $prep->execute([
+			$id
+		]);
 	}
 }
