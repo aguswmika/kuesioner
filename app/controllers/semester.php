@@ -42,7 +42,8 @@ switch ($url) {
 						'required' => true
 					],
 					'tahun' => [
-						'required' => true
+						'required' => true,
+						'integer'  => true
 					]
 				];
 
@@ -65,7 +66,8 @@ switch ($url) {
 						'required' => true
 					],
 					'tahun' => [
-						'required' => true
+						'required' => true,
+						'integer'  => true
 					]
 				];
 

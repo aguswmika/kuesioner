@@ -3,7 +3,13 @@
 class Semester
 {
 	static function getSingle($id){
-		$sql = "SELECT * FROM semester WHERE id_semester = ?";
+		$sql = "SELECT 
+				semester.*,
+				COUNT(form.id_semester) as jumlah_kuesioner
+				FROM semester 
+				LEFT JOIN form ON form.id_semester = semester.id_semester
+				WHERE semester.id_semester = ?
+				GROUP BY semester.id_semester";
 
 		$prep = DB::conn()->prepare($sql);
 		$prep->execute([$id]);
@@ -12,13 +18,19 @@ class Semester
 	}
 
 	static function getAll($except = ''){
-		$sql    = "SELECT * FROM semester";
+		$sql    = "SELECT 
+					semester.*,
+					COUNT(form.id_semester) as jumlah_kuesioner
+					FROM semester 
+					LEFT JOIN form ON form.id_semester = semester.id_semester";
 		$param  = [];
 
 		if(!empty($except)){
-			$sql .= " WHERE id_semester != ?";
+			$sql .= " WHERE semester.id_semester != ?";
 			$param = [$except]; 
 		}
+
+		$sql .= " GROUP BY semester.id_semester";
 
 		$prep = DB::conn()->prepare($sql);
 		$prep->execute($param);

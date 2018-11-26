@@ -114,6 +114,9 @@ class Kuesioner
 		$slug			= strtolower(str_replace('_', '-', str_replace(' ', '-', $nama)));
 		$tanggal 		= date('Y-m-d H:i:s');
 
+		if(count(Kuesioner::getSingleSlug($slug)) == 0){
+		}
+
 		$sql = "INSERT INTO form(id_form, nama, id_semester, tanggal, status, slug) VALUES (?, ?, ?, ?, ?, ?)";
 
 		$prep = DB::conn()->prepare($sql);

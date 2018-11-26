@@ -68,6 +68,7 @@
 								<th>No</th>
 								<th>Tipe</th>
 								<th>Tahun</th>
+								<th>Jumlah kuesioner</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -80,9 +81,10 @@
 									<td><?php echo $no++; ?></td>
 									<td><?php echo ucfirst($item->nama_semester); ?></td>
 									<td><?php echo $item->tahun; ?></td>
+									<td><?php echo $item->jumlah_kuesioner ?></td>
 									<td>
 										<a href="<?php echo base_url('?p=semester&act=index&id='.$item->id_semester) ?>" class="btn btn-warning btn-xs">Edit</a>
-										<form action="<?php echo base_url('?p=semester&act=delete') ?>" style="display: inline-block;" method="post" onclick="return confirm('Apakah yakin ingin dihapus?')">
+										<form action="<?php echo base_url('?p=semester&act=delete') ?>" style="display: inline-block;" method="post" onclick="return confirm('Apakah yakin ingin dihapus? (berdampak dengan kuesioner)')">
 											<input type="hidden" name="id" value="<?php echo $item->id_semester ?>">
 											<button type="submit" class="btn btn-danger btn-xs">Hapus</button>
 										</form>

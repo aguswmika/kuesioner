@@ -76,32 +76,35 @@
 					<div id="kuesioner" style="display: none;">
 						<div class="row" style="font-size: 18px">
 							<div class="col-md-3"><b>Nama Kuesioner</b></div>
-							<div class="col-md-9">: <?php echo $kuesioner->nama ?></div>
+							<div class="col-md-9">: <?php echo htmlentities($kuesioner->nama) ?></div>
 							<div class="col-md-3"><b>Semester</b></div>
-							<div class="col-md-9">: <?php echo $kuesioner->tahun_semester.' - '.ucfirst($kuesioner->nama_semester) ?></div>
+							<div class="col-md-9">: <?php echo htmlentities($kuesioner->tahun_semester.' - '.ucfirst($kuesioner->nama_semester)) ?></div>
 						</div>
 						<ol class="list-pertanyaan">
 							<form method="POST">
 								<?php $no = 0; ?>
 								<?php foreach ($kuesioners as $item) { ?>
 										<div class="form-group">
-											<input type="hidden" name="id_pertanyaan[<?php echo $no ?>]" value="<?php echo $item->id_pertanyaan ?>">
-											<li><?php echo $item->pertanyaan ?></li>
-											<input type="hidden" name="tipe[<?php echo $no ?>]" value="<?php echo $item->tipe ?>">
+											<input type="hidden" name="id_pertanyaan[<?php echo $no ?>]" value="<?php echo htmlentities($item->id_pertanyaan) ?>">
+											<li><?php echo htmlentities($item->pertanyaan) ?></li>
+											<input type="hidden" name="tipe[<?php echo $no ?>]" value="<?php echo htmlentities($item->tipe) ?>">
 											<?php if($item->tipe == 'opsional') {?>
-												<?php $opsi = Kuesioner::getAllOption($item->id_pertanyaan) ?>
+												<?php $opsi = Kuesioner::getAllOption(htmlentities($item->id_pertanyaan)) ?>
 												<?php foreach ($opsi as $item_opsi) { ?>
-													<label for='opsi_<?php echo $item_opsi->id_opsi  ?>'><input required id='opsi_<?php echo $item_opsi->id_opsi  ?>' type="radio" name="opsi[<?php echo $no ?>]" value="<?php echo $item_opsi->id_opsi ?>">  <span style="margin-left: 10px"><?php echo $item_opsi->value ?></span></label><br>
+													<label for='opsi_<?php echo htmlentities($item_opsi->id_opsi)  ?>'>
+														<input required id='opsi_<?php echo htmlentities($item_opsi->id_opsi)  ?>' type="radio" name="opsi[<?php echo $no ?>]" value="<?php echo htmlentities($item_opsi->id_opsi) ?>">  
+														<span style="margin-left: 10px"><?php echo htmlentities($item_opsi->value) ?></span>
+													</label><br>
 												<?php } ?>
 											<?php }else{ ?> 
-												<textarea required class="form-control" name="esay[<?php echo $no ?>]" rows="6" placeholder="Masukkan jawaban disini, maksimal 100 kata" maxlength="100"></textarea>
+												<textarea required class="form-control" name="esay[<?php echo $no ?>]" rows="6" placeholder="Masukkan jawaban disini, maksimal 1000 kata" maxlength="1000"></textarea>
 											<?php }	?>
 										</div>
 								<?php 
 									$no++;
 								} ?>
 								<div class="form-group">
-									<button type="submit" class="btn btn-success">Simpan</button>
+									<button type="submit" class="btn btn-success" onclick="return confirm('Apakah Anda yakin ingin melanjutkan?')">Simpan</button>
 								</div>
 							</form>
 						</ol>
@@ -123,7 +126,7 @@
 <script>
 	$(document).ready(function(){
 		$('#btnLanjut').click(function(){
-			if(confirm('Apakah anda yakin ingin melanjutkan?')){
+			if(confirm('Apakah Anda yakin ingin melanjutkan?')){
 				$('#petunjuk').fadeOut();
 				$('#loading').text('Loading...').fadeIn();
 				setTimeout(function(){

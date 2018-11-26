@@ -46,7 +46,7 @@ switch ($url) {
 		}else{
 			$config = [
 				'semester' => [
-					'required' => true
+					'required' => true,
 				],
 				'nama' => [
 					'required' => true

@@ -15,6 +15,8 @@ class Hasilkuesioner
 	
 	*/
 
+	//(SELECT COUNT(form_pertanyaan.id_pertanyaan) FROM form_pertanyaan WHERE form_pertanyaan.id_form = form.id_form) as jumlah 
+
 	static function getAll($id){
 		$sql    = "SELECT * FROM hasil_kuesioner WHERE id_pertanyaan = ?";
 		$param  = [$id];
@@ -25,6 +27,20 @@ class Hasilkuesioner
 		return $prep->fetchAll(PDO::FETCH_OBJ);
 	}
 
+	static function getAllResponden(){
+		$sql    = "SELECT count(hasil) as hasil FROM ((SELECT 
+					(SELECT COUNT(hasil_kuesioner.id_pertanyaan) FROM hasil_kuesioner WHERE hasil_kuesioner.id_pertanyaan = form_pertanyaan.id_pertanyaan) as hasil
+					FROM form
+				    INNER JOIN form_pertanyaan 
+				    ON form_pertanyaan.id_form = form.id_form
+				    WHERE (SELECT COUNT(hasil_kuesioner.id_pertanyaan) FROM hasil_kuesioner WHERE hasil_kuesioner.id_pertanyaan = form_pertanyaan.id_pertanyaan) > 0
+				    GROUP BY form.id_form)) as jumlah";
+
+		$prep = DB::conn()->prepare($sql);
+		$prep->execute();
+
+		return $prep->fetch(PDO::FETCH_OBJ);
+	}
 
 	static function insert(){
 		$id_pertanyaan 	= Input::post('id_pertanyaan');
@@ -67,4 +83,6 @@ class Hasilkuesioner
 			return false;
 		}
 	}
+
+
 }

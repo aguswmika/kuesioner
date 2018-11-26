@@ -20,7 +20,7 @@
 				<div class="mb-3">
 					<a href="<?php echo base_url('?p=kuesioner&act=insert') ?>" class="btn btn-success">Tambah</a>
 				</div>
-				<div class="data-tables">
+				<div class="data-tables" style="padding: 0px 50px;">
 					<table id="dataTable" class="text-center">
 						<thead class="bg-light text-capitalize">
 							<tr>
@@ -42,31 +42,35 @@
 								<tr>
 									<td><?php echo $no++; ?></td>
 									<td>
-										<a href="<?php echo base_url('view/'.$item->slug) ?>" target="_blank">
+										<a href="<?php echo base_url('view/'.htmlentities($item->slug)) ?>" target="_blank">
 											<?php 
-												echo (strlen($item->nama) > 80)  ?
-													 substr($item->nama, 0, 80) : $item->nama;
+												echo htmlentities((strlen($item->nama) > 80)  ?
+													 substr($item->nama, 0, 80) : $item->nama);
 											?>
 										</a>
 										
 									</td>
-									<td><?php echo $item->tahun_semester.' - '.ucfirst($item->nama_semester); ?></td>
-									<td><label class="badge badge-dark"><?php echo $item->jumlah ?></label></td>
-									<td><label class="badge badge-light"><?php echo $item->jumlah_jawaban ?></label></td>
-									<td><?php echo date('d-m-Y H:i', strtotime($item->tanggal)); ?></td>
-									<td><label class="badge badge-success"><?php echo ucfirst($item->status) ?></label></td>
+									<td><?php echo htmlentities($item->tahun_semester.' - '.ucfirst($item->nama_semester)); ?></td>
+									<td><label class="badge badge-dark"><?php echo htmlentities($item->jumlah) ?></label></td>
+									<td><label class="badge badge-light"><?php echo htmlentities($item->jumlah_jawaban) ?></label></td>
+									<td><?php echo htmlentities(date('d-m-Y H:i', strtotime($item->tanggal))); ?></td>
+									<td><label class="badge badge-success"><?php echo htmlentities(ucfirst($item->status)) ?></label></td>
 									<td>
-										<div style="margin-bottom: 5px">
-											<a href="<?php echo base_url('?p=kuesioner&act=insert_question&id='.$item->id_form) ?>" class="btn btn-info btn-xs">Tambah Pertanyaan</a>
+										<div class="btn-group" role="group">
+										    <button id="btnGroupDrop1" type="button" class="btn btn-xs btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										    	Aksi
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										    	<button class="btn-link dropdown-item text-dark" type="button" onclick="copyStringToClipboard('<?php echo base_url('view/'.$item->slug) ?>')">Dapatkan link</button>
+										    	<a class="dropdown-item text-info" href="<?php echo base_url('?p=kuesioner&act=insert_question&id='.$item->id_form) ?>">Tambah Pertanyaan</a>
+										    	<a class="dropdown-item text-primary" href="<?php echo base_url('?p=kuesioner&act=view_answer&id='.$item->id_form) ?>">Lihat Jawaban</a>
+										    	<a class="dropdown-item text-warning" href="<?php echo base_url('?p=kuesioner&act=edit&id='.$item->id_form) ?>">Edit</a>
+										    	<form action="<?php echo base_url('?p=kuesioner&act=delete') ?>" style="display: inline;" method="post" onclick="return confirm('Apakah yakin ingin dihapus?')">
+													<input type="hidden" name="id" value="<?php echo $item->id_form ?>">
+													<button type="submit" class="dropdown-item btn-link text-danger">Hapus</button>
+												</form>
+										    </div>
 										</div>
-										<div style="margin-bottom: 5px">
-											<a href="<?php echo base_url('?p=kuesioner&act=view_answer&id='.$item->id_form) ?>" class="btn btn-primary btn-xs">Lihat Jawaban</a>
-										</div>
-										<a href="<?php echo base_url('?p=kuesioner&act=edit&id='.$item->id_form) ?>" class="btn btn-warning btn-xs">Edit</a>
-										<form action="<?php echo base_url('?p=kuesioner&act=delete') ?>" style="display: inline-block;" method="post" onclick="return confirm('Apakah yakin ingin dihapus?')">
-											<input type="hidden" name="id" value="<?php echo $item->id_form ?>">
-											<button type="submit" class="btn btn-danger btn-xs">Hapus</button>
-										</form>
 									</td>
 								</tr>
 							<?php } ?>
@@ -77,6 +81,25 @@
 		</div>
 	</div>
 </div>
+<script>
+	function copyStringToClipboard (str) {
+	   // Create new element
+	   var el = document.createElement('textarea');
+	   // Set value (string to be copied)
+	   el.value = str;
+	   // Set non-editable to avoid focus and move outside of view
+	   el.setAttribute('readonly', '');
+	   el.style = {position: 'absolute', left: '-9999px'};
+	   document.body.appendChild(el);
+	   // Select text inside element
+	   el.select();
+	   // Copy text to clipboard
+	   document.execCommand('copy');
+	   // Remove temporary element
+	   document.body.removeChild(el);
+	   alert('Link sudah di copy');
+	}
+</script>
 
 <?php 
 $js = [

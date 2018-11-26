@@ -3,6 +3,8 @@
 $url = !empty(Input::get('act')) ? Input::get('act') : 'index';
 
 model('semester');
+model('kuesioner');
+model('hasilkuesioner');
 
 switch ($url) {
 	case 'index':
@@ -17,7 +19,9 @@ switch ($url) {
 		$data = [
 			'title' 		=> 'Dashboard',
 			'breadcrumbs' 	=> $breadcrumbs,
-			'semester'		=> Semester::getAll()
+			'responden'		=> Hasilkuesioner::getAllResponden()->hasil,
+			'semester'		=> count(Semester::getAll()),
+			'kuesioner'		=> count(kuesioner::getAll())
 		];
 
 		view('dashboard/index', $data);

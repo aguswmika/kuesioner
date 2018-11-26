@@ -18,6 +18,12 @@ class Validation
 							array_push($this->errors, $key.' lebih dari '.$value.' karakter');
 						}
 						break;
+
+					case 'integer':
+						if(is_numeric(Input::post($key)) != $value){
+							array_push($this->errors, $key.' harus angka');
+						}
+						break;
 					case 'required':
 						if(empty(Input::post($key))){
 							array_push($this->errors, $key.' harus di isi');
